@@ -10,6 +10,7 @@
             --main-blue: #3182f6;
             --bg-blue: #f2f7ff;
             --gray-text: #8b95a1;
+            --dark-gray: #4e5968;
             --light-gray: #f2f4f6;
             --black: #191f28;
         }
@@ -24,67 +25,42 @@
         section { display: none; width: 100%; min-height: 100vh; padding: 20px; flex-direction: column; align-items: center; }
         section.active { display: flex; }
 
-        /* 대시보드 메인 디자인 */
+        /* 1. 랜딩 페이지 애니메이션 */
+        #landing-page { justify-content: center; cursor: pointer; text-align: center; }
+        .fade-text { transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); position: absolute; }
+        .hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
+        .visible { opacity: 1; transform: translateY(0); }
+
+        /* 2. 로그인 페이지 */
+        .login-card { width: 100%; max-width: 400px; margin-top: 100px; }
+        .input-group input { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e5e8eb; background: #f9fafb; margin-bottom: 12px; font-size: 1rem; outline: none; }
+        .input-group input:focus { border-color: var(--main-blue); }
+
+        /* 3. 대시보드 */
         #main-dashboard { background-color: #f9fafb; padding-top: 80px; }
         .card { width: 100%; max-width: 500px; background: white; border-radius: 24px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-        .card h3 { margin-top: 0; color: var(--dark-gray); font-size: 1.1rem; margin-bottom: 20px; }
-
-        /* 일정 리스트 */
+        
+        /* 일정 리스트 스타일 (취소선 & 휴지통) */
         .todo-item { display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #f2f4f6; }
         .todo-item.completed .todo-text { color: var(--gray-text); text-decoration: line-through; }
-        .check-box { width: 22px; height: 22px; border: 2px solid var(--main-blue); border-radius: 6px; cursor: pointer; margin-right: 12px; }
-        .todo-item.completed .check-box { background: var(--main-blue); border-color: var(--main-blue); position: relative; }
-        .todo-text { flex-grow: 1; font-size: 1.05rem; line-height: 1.4; }
-        .trash-btn { width: 22px; cursor: pointer; opacity: 0.6; margin-left: 10px; }
+        .check-box { width: 22px; height: 22px; border: 2px solid var(--main-blue); border-radius: 6px; cursor: pointer; margin-right: 12px; transition: 0.2s; }
+        .todo-item.completed .check-box { background: var(--main-blue); }
+        .todo-text { flex-grow: 1; font-size: 1.05rem; }
+        .trash-icon { width: 22px; height: 22px; cursor: pointer; margin-left: 10px; }
 
-        /* ⭐ 날짜/시간 스크롤 피커 디자인 보완 ⭐ */
-        .picker-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            background: var(--light-gray);
-            border-radius: 16px;
-            padding: 10px;
-            margin-bottom: 15px;
-            height: 120px;
-            overflow: hidden;
-        }
-        /* 현재 선택된 곳 강조선 */
-        .picker-highlight {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            height: 34px;
-            border-top: 1px solid #d1d8e0;
-            border-bottom: 1px solid #d1d8e0;
-            pointer-events: none;
-        }
-        .picker-column {
-            flex: 1;
-            height: 100%;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            text-align: center;
-            z-index: 1;
-        }
+        /* 📅 스크롤 날짜 선택기 (기본 숨김) */
+        #picker-section { display: none; margin-top: 15px; }
+        .picker-wrapper { position: relative; display: flex; background: var(--light-gray); border-radius: 16px; padding: 10px; height: 120px; overflow: hidden; }
+        .picker-highlight { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; height: 34px; border-top: 1px solid #d1d8e0; border-bottom: 1px solid #d1d8e0; pointer-events: none; }
+        .picker-column { flex: 1; height: 100%; overflow-y: scroll; scroll-snap-type: y mandatory; text-align: center; }
         .picker-column::-webkit-scrollbar { display: none; }
-        .picker-item {
-            height: 34px;
-            line-height: 34px;
-            scroll-snap-align: center;
-            font-size: 0.95rem;
-            color: var(--gray-text);
-        }
-        /* 스크롤 시 중앙에 오면 검은색으로 */
-        .picker-item.active { color: var(--black); font-weight: bold; }
+        .picker-item { height: 34px; line-height: 34px; scroll-snap-align: center; font-size: 0.9rem; }
 
-        .btn-add { width: 100%; background: var(--main-blue); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        .btn-blue { width: 100%; background: var(--main-blue); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 10px; }
 
-        /* 기타 페이지용 (랜딩 등 생략 방지용 최소화) */
-        #landing-page { justify-content: center; cursor: pointer; }
-        .login-card { width: 100%; max-width: 400px; margin-top: 100px; }
+        /* 팝업 모달 */
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:2000; }
+        .modal { background: white; padding: 25px; border-radius: 20px; width: 90%; max-width: 350px; text-align: center; }
     </style>
 </head>
 <body>
@@ -94,127 +70,170 @@
     </div>
 
     <section id="landing-page" class="active" onclick="handleLandingClick()">
-        <div id="guide-text" style="color:var(--dark-gray); font-size:1.1rem;">화면의 아무곳을 탭하세요.</div>
-        <div id="manage-text" style="opacity:0; font-weight:bold; font-size:1.5rem; transition:0.5s;">당신의 일정을 관리하세요.</div>
-        <button id="login-trigger" style="display:none; margin-top:20px; background:var(--main-blue); color:white; border:none; padding:15px 30px; border-radius:12px; font-weight:bold;">로그인하기</button>
+        <img src="static/WTDlogo.png" style="width:130px; margin-bottom:30px;">
+        <div id="text-guide" class="fade-text visible" style="color: var(--dark-gray);">화면의 아무곳을 탭하세요.</div>
+        <div id="text-manage" class="fade-text hidden" style="font-weight: bold; font-size: 1.5rem;">당신의 일정을 관리하세요.</div>
+        <button id="btn-login-start" class="btn-blue hidden" style="width: auto; padding: 15px 40px; margin-top: 80px;" onclick="goToLogin(event)">로그인하기</button>
     </section>
 
     <section id="login-page">
         <div class="login-card">
-            <h2>WTD에 로그인하세요.</h2>
-            <input type="email" id="email-input" placeholder="학교 이메일 (@dshs.kr)" style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; margin-bottom:10px;">
-            <button class="btn-add" onclick="checkLogin()">로그인</button>
+            <h1>WTD에 로그인하세요.</h1>
+            <div class="input-group">
+                <input type="email" id="email-input" placeholder="학교 이메일 (@dshs.kr)">
+                <input type="password" id="pw-input" placeholder="비밀번호">
+            </div>
+            <button class="btn-blue" onclick="attemptLogin()">로그인하기</button>
         </div>
     </section>
 
+    <div id="name-modal" class="modal-overlay">
+        <div class="modal">
+            <h3>사용하실 이름을 입력해주세요</h3>
+            <input type="text" id="nickname-input" style="width:100%; padding:12px; margin:20px 0; border:1px solid #ddd; border-radius:10px;" placeholder="이름 입력">
+            <button class="btn-blue" onclick="saveNameAndStart()">확인</button>
+        </div>
+    </div>
+
     <section id="main-dashboard">
-        <div style="width:100%; max-width:500px;">
-            <h1 id="user-welcome">님 환영합니다.</h1>
-            <p id="user-subtitle" style="color:var(--gray-text);">님의 일정을 관리하세요.</p>
+        <div style="width:100%; max-width:500px; margin-top:20px;">
+            <h1 id="welcome-title" style="margin-bottom:5px;">님 환영합니다.</h1>
+            <p id="welcome-sub" style="color: var(--gray-text); margin-top:0;">님의 일정을 관리하세요.</p>
         </div>
 
         <div class="card">
-            <h3>⏳ 타임라인 (D-Day)</h3>
-            <div id="timeline-area" style="font-size:0.9rem; color:var(--dark-gray);"></div>
+            <h3>⏳ 타임라인</h3>
+            <div id="timeline-list" style="font-size:0.95rem;"></div>
         </div>
 
         <div class="card">
             <h3>✅ 현재 남은 일정</h3>
-            <div id="todo-list-area"></div>
+            <div id="todo-list"></div>
         </div>
 
         <div class="card">
             <h3>➕ 일정 추가하기</h3>
-            <input type="text" id="new-todo-text" placeholder="공통영어 자기평가서 작성하기" style="width:100%; padding:15px; border:none; background:var(--light-gray); border-radius:12px; margin-bottom:15px; font-size:1rem;">
+            <input type="text" id="todo-input" oninput="togglePicker(this)" placeholder="무엇을 해야 하나요?" style="width:100%; padding:15px; border:none; background:var(--light-gray); border-radius:12px; outline:none;">
             
-            <div style="font-size:0.85rem; color:var(--gray-text); margin-bottom:8px; font-weight:bold;">마감 기한 설정 (스크롤하세요)</div>
-            
-            <div class="picker-wrapper" id="date-picker-container">
-                <div class="picker-highlight"></div>
+            <div id="picker-section">
+                <p style="font-size:0.8rem; color:var(--gray-text); margin: 15px 0 5px 5px;">마감 기한 설정</p>
+                <div class="picker-wrapper" id="date-picker-container">
+                    <div class="picker-highlight"></div>
                 </div>
-
-            <button class="btn-add" onclick="addNewTodo()">추가</button>
+                <button class="btn-blue" onclick="addTodo()">일정 추가</button>
+            </div>
         </div>
     </section>
 
     <script>
-        let landingStep = 0;
+        let step = 0;
         let currentUser = "";
         let todos = [];
 
+        // 랜딩 애니메이션
         function handleLandingClick() {
-            if(landingStep === 0) {
-                document.getElementById('guide-text').style.display='none';
-                document.getElementById('manage-text').style.opacity='1';
-                landingStep = 1;
-            } else if(landingStep === 1) {
-                document.getElementById('login-trigger').style.display='block';
+            if(step === 0) {
+                document.getElementById('text-guide').classList.replace('visible', 'hidden');
+                setTimeout(() => {
+                    document.getElementById('text-manage').classList.replace('hidden', 'visible');
+                }, 400);
+                step = 1;
+            } else if(step === 1) {
+                document.getElementById('btn-login-start').classList.replace('hidden', 'visible');
+                step = 2;
             }
         }
 
-        function goToLogin(e) { e.stopPropagation(); document.getElementById('landing-page').classList.remove('active'); document.getElementById('login-page').classList.add('active'); }
-        document.getElementById('login-trigger').onclick = goToLogin;
+        function goToLogin(e) {
+            e.stopPropagation();
+            document.getElementById('landing-page').classList.remove('active');
+            document.getElementById('login-page').classList.add('active');
+        }
 
-        function checkLogin() {
+        // 로그인 로직
+        function attemptLogin() {
             const email = document.getElementById('email-input').value;
             if (email.endsWith('@dshs.kr')) {
                 currentUser = email;
-                document.getElementById('login-page').classList.remove('active');
-                document.getElementById('main-dashboard').classList.add('active');
-                document.getElementById('user-welcome').innerText = email.split('@')[0] + "님 환영합니다.";
-                initPicker();
-                loadTodos();
-            } else { alert("@dshs.kr 메일을 사용해주세요."); }
+                const savedName = localStorage.getItem(`name_${email}`);
+                if(savedName) { startDashboard(savedName); } 
+                else { document.getElementById('name-modal').style.display = 'flex'; }
+            } else { alert("@dshs.kr 이메일을 확인해주세요."); }
         }
 
-        // 📅 스크롤 피커 생성 함수
-        function initPicker() {
-            const now = new Date();
-            const container = document.getElementById('date-picker-container');
-            const units = [
-                { id: 'year', start: 2025, end: 2030, label: '년', current: now.getFullYear() },
-                { id: 'month', start: 1, end: 12, label: '월', current: now.getMonth() + 1 },
-                { id: 'day', start: 1, end: 31, label: '일', current: now.getDate() },
-                { id: 'hour', start: 0, end: 23, label: '시', current: now.getHours() },
-                { id: 'min', start: 0, end: 59, label: '분', current: now.getMinutes() }
-            ];
+        function saveNameAndStart() {
+            const name = document.getElementById('nickname-input').value;
+            if(!name) return alert("이름을 입력하세요.");
+            localStorage.setItem(`name_${currentUser}`, name);
+            document.getElementById('name-modal').style.display = 'none';
+            startDashboard(name);
+        }
 
+        function startDashboard(name) {
+            document.getElementById('login-page').classList.remove('active');
+            document.getElementById('main-dashboard').classList.add('active');
+            document.getElementById('welcome-title').innerText = `${name}님 환영합니다.`;
+            document.getElementById('welcome-sub').innerText = `${name}님의 일정을 관리하세요.`;
+            initPicker();
+            loadData();
+        }
+
+        // 🕒 입력 시 시간 설정 칸 보이기/숨기기
+        function togglePicker(input) {
+            const picker = document.getElementById('picker-section');
+            picker.style.display = input.value.length > 0 ? 'block' : 'none';
+        }
+
+        // 스크롤 피커 생성
+        function initPicker() {
+            const container = document.getElementById('date-picker-container');
+            if(container.children.length > 1) return; // 중복 생성 방지
+            const now = new Date();
+            const units = [
+                { id: 'year', start: 2025, end: 2030, curr: now.getFullYear() },
+                { id: 'month', start: 1, end: 12, curr: now.getMonth() + 1 },
+                { id: 'day', start: 1, end: 31, curr: now.getDate() },
+                { id: 'hour', start: 0, end: 23, curr: now.getHours() },
+                { id: 'min', start: 0, end: 59, curr: now.getMinutes() }
+            ];
             units.forEach(u => {
                 const col = document.createElement('div');
                 col.className = 'picker-column';
-                col.id = `picker-${u.id}`;
-                col.innerHTML = '<div class="picker-item"></div>'; // 상단 여백
+                col.id = `p-${u.id}`;
+                col.innerHTML = '<div class="picker-item"></div>';
                 for(let i=u.start; i<=u.end; i++) {
                     const item = document.createElement('div');
                     item.className = 'picker-item';
-                    item.innerText = (i < 10 ? '0'+i : i) + u.label;
+                    item.innerText = i < 10 ? '0'+i : i;
                     col.appendChild(item);
                 }
-                col.innerHTML += '<div class="picker-item"></div>'; // 하단 여백
+                col.innerHTML += '<div class="picker-item"></div>';
                 container.appendChild(col);
-                
-                // 초기 위치 설정
-                setTimeout(() => { col.scrollTop = (u.current - u.start) * 34; }, 100);
+                setTimeout(() => { col.scrollTop = (u.curr - u.start) * 34; }, 100);
             });
         }
 
-        function addNewTodo() {
-            const text = document.getElementById('new-todo-text').value;
-            if(!text) return;
-
-            const getVal = (id) => {
-                const col = document.getElementById(`picker-${id}`);
-                const idx = Math.round(col.scrollTop / 34);
-                return col.children[idx + 1].innerText.replace(/[^0-9]/g, '');
-            };
-
-            const timeStr = `${getVal('year')}-${getVal('month')}-${getVal('day')} ${getVal('hour')}:${getVal('min')}`;
-            todos.push({ id: Date.now(), text, date: timeStr, done: false });
-            saveAndRender();
-            document.getElementById('new-todo-text').value = '';
+        // 일정 관리 로직
+        function loadData() {
+            const data = localStorage.getItem(`todos_${currentUser}`);
+            todos = data ? JSON.parse(data) : [];
+            render();
         }
 
-        function toggleDone(id) {
+        function addTodo() {
+            const input = document.getElementById('todo-input');
+            const getVal = (id) => {
+                const col = document.getElementById(`p-${id}`);
+                return col.children[Math.round(col.scrollTop / 34) + 1].innerText;
+            };
+            const dateStr = `${getVal('year')}.${getVal('month')}.${getVal('day')} ${getVal('hour')}:${getVal('min')}`;
+            todos.push({ id: Date.now(), text: input.value, date: dateStr, done: false });
+            input.value = '';
+            togglePicker(input);
+            saveAndRender();
+        }
+
+        function toggleTodo(id) {
             const t = todos.find(x => x.id === id);
             if(t) t.done = !t.done;
             saveAndRender();
@@ -227,33 +246,31 @@
 
         function saveAndRender() {
             localStorage.setItem(`todos_${currentUser}`, JSON.stringify(todos));
-            const list = document.getElementById('todo-list-area');
-            const timeline = document.getElementById('timeline-area');
-            list.innerHTML = ''; timeline.innerHTML = '';
+            render();
+        }
+
+        function render() {
+            const list = document.getElementById('todo-list');
+            const tl = document.getElementById('timeline-list');
+            list.innerHTML = ''; tl.innerHTML = '';
 
             todos.forEach(t => {
                 const item = document.createElement('div');
                 item.className = `todo-item ${t.done ? 'completed' : ''}`;
                 item.innerHTML = `
-                    <div class="check-box" onclick="toggleDone(${t.id})"></div>
-                    <div class="todo-text">${t.text}<br><span style="font-size:0.75rem; color:var(--main-blue)">${t.date}</span></div>
-                    <img src="static/WTD_Trashcan.png" class="trash-btn" onclick="deleteTodo(${t.id})" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1214/1214428.png'">
+                    <div class="check-box" onclick="toggleTodo(${t.id})"></div>
+                    <div class="todo-text">${t.text}<br><span style="font-size:0.7rem; color:var(--main-blue)">${t.date}</span></div>
+                    <img src="static/WTD_Trashcan.png" class="trash-icon" onclick="deleteTodo(${t.id})" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1214/1214428.png'">
                 `;
                 list.appendChild(item);
 
                 if(!t.done) {
-                    const tl = document.createElement('div');
-                    tl.style.marginBottom = "5px";
-                    tl.innerHTML = `<strong>${t.text}</strong>: <span style="color:var(--main-blue)">진행 중</span>`;
-                    timeline.appendChild(tl);
+                    const tItem = document.createElement('div');
+                    tItem.style.marginBottom = "8px";
+                    tItem.innerHTML = `<span style="color:var(--main-blue); font-weight:bold;">${t.date.split(' ')[1]}</span> ${t.text}`;
+                    tl.appendChild(tItem);
                 }
             });
-        }
-
-        function loadTodos() {
-            const data = localStorage.getItem(`todos_${currentUser}`);
-            if(data) { todos = JSON.parse(data); render(); }
-            saveAndRender();
         }
     </script>
 </body>
