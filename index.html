@@ -20,17 +20,17 @@
         * { box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; background: #fff; color: var(--black); overflow-x: hidden; padding-bottom: 80px; }
 
-        /* 공통 스타일 */
+        /* 테마 */
         .btn-blue { background: var(--main-blue); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
         .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
         
-        /* 로고 및 랜딩 */
+        /* 로고 */
         .logo-container { position: fixed; top: 20px; left: 20px; z-index: 1000; cursor: pointer; }
         .logo-img { width: 80px; }
         section { display: none; width: 100%; min-height: 100vh; padding: 20px; flex-direction: column; align-items: center; }
         section.active { display: flex; }
 
-        /* 랜딩 & 로그인 */
+        /* 로그인 */
         #landing-page { justify-content: center; cursor: pointer; text-align: center; }
         .fade-text { transition: all 0.6s ease; position: absolute; width: 100%; left: 0; }
         .hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
@@ -38,35 +38,35 @@
         .login-card { width: 100%; max-width: 400px; margin-top: 100px; }
         .input-group input { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e5e8eb; background: #f9fafb; margin-bottom: 12px; font-size: 1rem; outline: none; }
 
-        /* 대시보드 탭 네비게이션 */
+        /* glb */
         .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: white; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; z-index: 1000; }
         .nav-item { flex: 1; text-align: center; font-size: 0.8rem; color: var(--gray-text); cursor: pointer; }
         .nav-item.active { color: var(--main-blue); font-weight: bold; }
 
-        /* 탭 컨텐츠 영역 */
+        /* tab contents */
         .tab-content { display: none; width: 100%; max-width: 500px; animation: fadeIn 0.3s; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 1. 투두 리스트 스타일 (기존 유지) */
+        /* 1. todolist */
         .todo-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f2f4f6; }
         .check-box { width: 22px; height: 22px; border: 2px solid var(--main-blue); border-radius: 6px; margin-right: 12px; cursor: pointer; }
         .check-box.checked { background: var(--main-blue); }
         .trash-icon { width: 20px; opacity: 0.6; cursor: pointer; margin-left: auto; }
         
-        /* 2. 시간표 & 방학 모드 */
+        /* 2. time schedule */
         .vacation-card { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); color: white; text-align: center; padding: 40px 20px; border-radius: 20px; cursor: pointer; transition: transform 0.2s; }
         .vacation-card:active { transform: scale(0.98); }
         .vacation-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; }
         .vacation-desc { font-size: 0.9rem; opacity: 0.9; }
 
-        /* 3. 공유 메모장 모달 */
+        /* 3. shared-memo */
         .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); display:none; justify-content:center; align-items:center; z-index:2000; }
         .modal { background: white; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
         .close-btn { position: absolute; top: 15px; right: 15px; cursor: pointer; font-size: 1.2rem; }
         textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ddd; border-radius: 10px; margin-top: 10px; resize: none; font-size: 0.95rem; }
 
-        /* 4. 블록체인 메신저 */
+        /* 4. block-chain message */
         .chat-container { display: flex; flex-direction: column; height: 400px; }
         .chat-log { flex: 1; overflow-y: auto; padding: 10px; background: #f9f9f9; border-radius: 15px; border: 1px solid #eee; margin-bottom: 10px; }
         .message-bubble { background: white; padding: 10px 15px; border-radius: 15px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); position: relative; border-left: 4px solid var(--green); }
@@ -75,7 +75,7 @@
         .input-area { display: flex; gap: 8px; }
         .input-area input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
 
-        /* 상단 헤더 */
+        /* header */
         .top-header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: white; z-index: 900; display: flex; align-items: center; padding: 0 20px; font-weight: bold; font-size: 1.1rem; border-bottom: 1px solid #f2f4f6; }
         #picker-section { display: none; margin-top: 20px; width: 100%; }
         .picker-wrapper { position: relative; display: flex; background: var(--light-gray); border-radius: 16px; padding: 10px; height: 120px; overflow: hidden; }
@@ -210,7 +210,7 @@
     </div>
 
     <script>
-        // === 1. 랜딩 및 로그인 로직 ===
+        // login logic
         let landingIdx = 0;
         let loggedInEmail = "";
         
@@ -267,7 +267,7 @@
             loadTodos();
         }
 
-        // === 2. 탭 전환 로직 ===
+        // 전환 logic
         function switchTab(tabName) {
             // 모든 탭 컨텐츠 숨김
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -283,7 +283,7 @@
             document.getElementById('page-title').innerText = titles[tabName];
         }
 
-        // === 3. 일정 관리 (기존 코드 유지 및 최적화) ===
+        // 일정 관리 + 추가 개발 필요
         let todoListData = [];
 
         function checkInput(el) {
@@ -378,11 +378,10 @@
             });
         }
 
-        // === 4. 공유 메모장 로직 ===
+        // shared-memo logic +추가 개발
         function openNoteModal(subject) {
             document.getElementById('note-modal').style.display = 'flex';
             document.getElementById('modal-subject').innerText = subject;
-            // 로컬 스토리지에서 메모 불러오기
             const savedMemo = localStorage.getItem(`wtd_memo_${subject}`);
             document.getElementById('class-memo').value = savedMemo || "";
         }
@@ -399,11 +398,11 @@
             closeModal();
         }
 
-        // === 5. 블록체인 메신저 로직 (SHA-256) ===
+        // block chain message
         let blockchain = [];
         let previousHash = "0000000000000000000000000000000000000000000000000000000000000000"; // Genesis Hash
 
-        // SHA-256 해싱 함수 (Web Crypto API)
+        // SHA-256
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -416,7 +415,6 @@
             const text = input.value;
             if(!text) return;
 
-            // 블록 생성 (이전 해시 포함)
             const rawData = previousHash + text + Date.now();
             const currentHash = await sha256(rawData);
 
@@ -428,7 +426,7 @@
             };
 
             blockchain.push(block);
-            previousHash = currentHash; // 체인 연결
+            previousHash = currentHash;
             
             appendMessageToUI(block, blockchain.length - 1);
             input.value = "";
